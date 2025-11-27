@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="js/index.js" defer></script>
+  <title>html</title>
+</head>
+<body>
+    <div class="splash-screen" id="splashScreen">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" height="5.5em" width="5.5em"><path fill="currentColor" d="M21.85 44q-1.2 0-2.1-.875-.9-.875-.9-2.125V31H11q-1.2 0-2.1-.9Q8 29.2 8 28V12.85q0-2.75 1.975-4.8T14.75 6H40v22q0 1.2-.9 2.1-.9.9-2.1.9h-7.85v10q0 1.25-.9 2.125t-2.1.875ZM11 20.3h26V9h-2.8v7.05q0 .65-.425 1.075-.425.425-1.075.425-.65 0-1.075-.425-.425-.425-.425-1.075V9h-3.55v2.75q0 .65-.425 1.075-.425.425-1.075.425-.65 0-1.075-.425-.425-.425-.425-1.075V9h-9.9q-1.6 0-2.675 1.15Q11 11.3 11 12.85Z"/></svg>
+    </div>
+	
+  <main>
+  	<div class="layers">
+  	  <canvas class="canvas layers__grid" id="gridLayer"></canvas>
+  	  <canvas class="canvas layers__background" id="backgroundLayer"></canvas>
+  	  <canvas class="canvas layers__gameplay" id="gameplayLayer"></canvas>
+  	  <canvas class="canvas layers__drawing" id="drawingLayer"></canvas>
+  	  <canvas class="canvas layers__ui" id="uiLayer"></canvas>
+  	  <canvas class="canvas layers__cursor" id="cursorLayer"></canvas>
+  	  <canvas class="canvas layers__touch-area" id="touchAreaLayer"></canvas>
+  	</div>
+  </main>
+  <header>
+    <div class="settings">
+    	<div class="controls">
+    	  <label for="toggleGridCheckbox" class="controls__label">
+    	    Grid
+    	  	<span class="controls__toggle material-symbols-rounded" id="gridLabel">toggle_on</span>
+    	  </label>
+    	  <input type="checkbox" class="controls__input" id="toggleGridCheckbox" checked>
+    	  
+    	  <label for="toggleUI" class="controls__label">
+    	    UI
+    	    <span class="controls__toggle material-symbols-rounded" id="uiLabel">toggle_on</span>
+    	  </label>
+    	  <input type="checkbox" class="controls__input" id="toggleUI" checked>
+    	
+    	  <label for="toggleBg" class="controls__label">
+    	    Background
+    	    <span class="controls__toggle material-symbols-rounded" id="bgLabel">toggle_on</span>
+    	  </label>
+    	  <input type="checkbox" class="controls__input" id="toggleBg" checked>
+    	
+    	</div>
+    </div>
+  </header>
+	
+<!--	<section>
+	  <div class="toolbar"></div>
+	</section>-->
+	  
+</body>
+</html>

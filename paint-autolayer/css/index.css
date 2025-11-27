@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Kollektif&display=swap');
+
+:root {
+	--text-color: #ABADB0;
+	--primary: #414A51;
+	--secondary: #273238;
+	--tertiary: #717A81;
+	--white: #f5f7f9;
+	--border-radius: 12px;
+	--padding: 10px;
+	--default-size: 16px;
+	--left-size: 330px;
+	--right-size: calc(var(--left-size) * 1.618);
+}
+
+@font-face {
+	font-family: product;
+	src: url("../fonts/product-sans/Product Sans Bold.ttf");
+}
+
+* {
+  margin: 0;
+  user-select: none;
+  /* outline: 1px dotted red; */
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: inherit;
+  margin: 0;
+}
+
+.layer-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.layer {
+  /* outline: 1px solid #555; */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.toolbar {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  /* border: 1px solid rgba(0,0,0,.1); */
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -10px 15px rgba(0,0,100,.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.toolbar__line__input {
+  display: none;
+}
+
+.toolbar__line__label {
+  outline: 1px solid;
+  width: 100px;
+  height: 100px;
+}
