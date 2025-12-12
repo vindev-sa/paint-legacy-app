@@ -2,7 +2,7 @@
  * splashScreen
  * 
  * Tempo para a duraçāo da splashscreen definida em segundos.
- * Razāo: Alguns item da UI necessitam de tempo para carregar.
+ * Razāo: Alguns itens da UI necessitam de tempo para carregar.
  */
  
 setTimeout(function() {
@@ -29,6 +29,26 @@ function q(element) {
 const width = document.body.offsetWidth;
 const height = document.body.offsetHeight;
 
+
+let startX = 0;
+let startX1 = 0;
+let startY = 0;
+let startY1 = 0;
+let tchX = 0;
+let tchX1 = 0;
+let tchY = 0;
+let tchY1 = 0;
+let startSnapX = 0;
+let startSnapY = 0;
+let gSnapX = 0;
+let gSnapY = 0;
+let gridSize = 12;
+let r = 0;
+
+let thickness = 0.5;
+let is1stTouch = false;
+let is2ndTouch = false;
+let color = "dodgerblue";
 
 /**
  * Inicializaçāo de altura e largura de cada camada
@@ -69,21 +89,20 @@ drawingCtx.alpha = false;
 cursorCtx.alpha = false;
 
 /**
- * Funçāo desenhar linha.
+ * Funçāo desenhar pixels.
  * 
- * Desenho de linhas no canvas utilizando 
- * coordenadas como parâmetros e o contexto.
- * A funçāo desenha apenas 1 linha de cada vez.
+ * Desenho de pixels no canvas
  * 
  * Parâmetros:
- * ctx: contexto
- * mx: moveTo - X
- * my: moveTo - Y
- * lx: lineTo - X
- * ly: lineTo - Y
- * color: cor da linha.
+ * * ctx: contexto
+ * * startX: Ponto inicial no eixo X
+ * * startY: Ponto inicial no eixo Y
+ * * x: Posição horizontal atual do novo pixel 
+ * * y: Posição vertical atual do novo pixel
+ * * thickness: Espessura da linha
+ * * color: cor da linha.
  * 
- * Tipo de retorno: void.
+ * * Tipo de retorno: void.
  */
  function drawPixels(ctx, startX, startY, x, y, thickness, color) {
     ctx.beginPath();
@@ -330,8 +349,8 @@ function drawGrid(longitute, latitude, colorx, colory) {
  */
 
 function draw50x10Grid() {
-  drawGrid(10, 10, "#aaa", "#aaa");
-  drawGrid(50, 50, "#555", "#555");
+  drawGrid(gridSize, gridSize, "#aaa", "#aaa");
+  drawGrid(gridSize * 5, gridSize * 5, "#555", "#555");
 }
 
 
@@ -458,24 +477,6 @@ const isLayerVisible = {
   bg: true
 }
 
-let startX = 0;
-let startX1 = 0;
-let startY = 0;
-let startY1 = 0;
-let tchX = 0;
-let tchX1 = 0;
-let tchY = 0;
-let tchY1 = 0;
-let startSnapX = 0;
-let startSnapY = 0;
-let gSnapX = 0;
-let gSnapY = 0;
-let r = 0;
-
-let thickness = 0.5;
-let is1stTouch = false;
-let is2ndTouch = false;
-let color = "crimson";
 
 function drawClip() {
   drawingCtx.beginPath();
@@ -507,7 +508,7 @@ function handleStart(event) {
   startX1 = event.touches[1]?.clientX;
   // startY = event.touches[0].clientY;
   startY1 = event.touches[1]?.clientY;
-  [startSnapX, startSnapY] = [Math.floor(tch0.clientX / 10) * 10, Math.floor(tch0.clientY / 10) * 10]
+  [startSnapX, startSnapY] = [Math.round(tch0.clientX / gridSize) * gridSize, Math.round(tch0.clientY / gridSize) * gridSize]
 }
 
 function handleMove(event) {
@@ -515,8 +516,8 @@ function handleMove(event) {
   const x1 = event.touches[1]?.clientX;
   const y = event.touches[0].clientY;
   const y1 = event.touches[1]?.clientY;
-  const snapX = Math.floor(x/10) * 10;
-  const snapY = Math.floor(y/10) * 10;
+  const snapX = Math.round(x/gridSize) * gridSize;
+  const snapY = Math.round(y/gridSize) * gridSize;
   
   gameplayCtx.beginPath();
   clearLayer(gameplayCtx, 0, 0, width, height);
@@ -525,9 +526,10 @@ function handleMove(event) {
   event.touches[1] && (is2ndTouch = true);
   event.touches[1] && (r = Math.abs(startX1 - x1));
   event.touches[1] && (thickness = Math.abs(startY1 - y1) / 10);
-  is2ndTouch && drawSquare(gameplayCtx, startSnapX, startSnapY, snapX - startSnapX, snapY - startSnapY, "crimson", r / 5);
+  is2ndTouch && drawSquare(gameplayCtx, startSnapX, startSnapY, snapX - startSnapX, snapY - startSnapY, color, r / 5);
   isLayerVisible.ui && drawText(uiCtx, `startX: ${startX|0}, startY: ${startY|0}, X: ${x|0} Y: ${y|0}, r: ${(r / 5)|0}, tck: ${thickness | 0}`, 20, 20, "red");
   isLayerVisible.ui && drawText(uiCtx, `snapX: ${snapX}, snapY: ${snapY}`, 20, 40, "green");
+  isLayerVisible.ui && drawText(uiCtx, `startSnapX: ${startSnapX}, startSnapY: ${startSnapY}`, 20, 60, "green");
 
   drawCursor(cursorCtx, snapX, snapY, width, height, "red");
   
@@ -536,7 +538,7 @@ function handleMove(event) {
 }
 
 function handleEnd(event) {
-  is2ndTouch && drawSquare(drawingCtx, startSnapX, startSnapY, gSnapX - startSnapX, gSnapY - startSnapY, "red", r / 5);
+  is2ndTouch && drawSquare(drawingCtx, startSnapX, startSnapY, gSnapX - startSnapX, gSnapY - startSnapY, color, r / 5);
   is1stTouch = false;
   is2ndTouch = false;
 }
